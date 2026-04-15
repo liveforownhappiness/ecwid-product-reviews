@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Store {
+  id           String   @id @default(cuid())
+  storeId      String   @unique @map("store_id")
+  accessToken  String   @map("access_token")
+  plan         String   @default("free")   // free | pro
+  autoRequest  Boolean  @default(true) @map("auto_request")  // 주문 완료 후 자동 발송
+  requestDelay Int      @default(7) @map("request_delay")    // 발송 대기 일수
+  emailFrom    String?  @map("email_from")                   // Pro: 커스텀 발신자
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  reviews  Review[]
+  requests ReviewRequest[]
+
+  @@map("review_stores")
+}
+
+model Review {
+  id            String   @id @default(cuid())
+  storeId       String   @map("store_id")
+  store         Store    @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  productId     String   @map("product_id")
+  productName   String   @map("product_name")
+  orderId       String?  @map("order_id")
+  customerName  String   @map("customer_name")
+  customerEmail String   @map("customer_email")
+  rating        Int      // 1-5
+  title         String?
+  body          String?
+  status        String   @default("pending")  // pending | approved | rejected
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([storeId, productId])
+  @@index([storeId, status])
+  @@map("reviews")
+}
+
+model ReviewRequest {
+  id            String    @id @default(cuid())
+  storeId       String    @map("store_id")
+  store         Store     @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  orderId       String    @map("order_id")
+  customerEmail String    @map("customer_email")
+  customerName  String    @map("customer_name")
+  productId     String    @map("product_id")
+  productName   String    @map("product_name")
+  token         String    @unique @default(cuid())  // 이메일 링크 토큰
+  sentAt        DateTime? @map("sent_at")
+  completedAt   DateTime? @map("completed_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  @@index([storeId])
+  @@index([token])
+  @@map("review_requests")
+}
