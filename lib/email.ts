@@ -23,7 +23,7 @@ export async function sendReviewRequest({
   const reviewUrl = `${APP_URL}/review?token=${token}`
 
   await getResend().emails.send({
-    from: 'reviews@liveforownhappiness.com',
+    from: 'liveforownhappiness@liveforownhappiness.com',
     to,
     subject: `How was your ${productName}?`,
     html: `
