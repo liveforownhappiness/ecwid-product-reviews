@@ -201,7 +201,7 @@ export default function Dashboard() {
           <li>Photo reviews</li>
         </ul>
         <a
-          href={`https://liveforownhappiness.lemonsqueezy.com/buy/ecwid-reviews-pro?store_id=${storeId}`}
+          href={`https://liveforownhappiness.lemonsqueezy.com/buy/ecwid-reviews-pro?checkout[custom][store_id]=${storeId}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
