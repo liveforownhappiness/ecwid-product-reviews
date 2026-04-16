@@ -201,7 +201,7 @@ export default function Dashboard() {
           <li>Photo reviews</li>
         </ul>
         <a
-          href={`https://50×10.lemonsqueezy.com/checkout/buy/585e1ee7-d753-4f51-a120-2cdb788ad383?checkout[custom][store_id]=${storeId}`}
+          href={`https://50x10.lemonsqueezy.com/checkout/buy/544fd2e9-54e9-4bdb-a82b-e717efa0a899?checkout[custom][store_id]=${storeId}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
